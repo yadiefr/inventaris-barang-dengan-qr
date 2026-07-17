@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title') - Inventory QR</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @yield('styles')
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">I</div>
+            <div class="brand-name">Inventaris Barang</div>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="{{ Route::is('dashboard') ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="{{ Route::is('items.index') || Route::is('items.create') || Route::is('items.edit') || Route::is('items.show') ? 'active' : '' }}">
+                <a href="{{ route('items.index') }}">
+                    <svg viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4 8 4 8-4zM4 12l8 4 8-4M4 17l8 4 8-4"/></svg>
+                    <span>Daftar Barang</span>
+                </a>
+            </li>
+            <li class="{{ Route::is('categories.index') ? 'active' : '' }}">
+                <a href="{{ route('categories.index') }}">
+                    <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                    <span>Kategori</span>
+                </a>
+            </li>
+            <li class="{{ Route::is('items.scan') ? 'active' : '' }}">
+                <a href="{{ route('items.scan') }}">
+                    <svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2m10 0h2a2 2 0 0 1 2 2v2m0 10v2a2 2 0 0 1-2 2h-2m-10 0H5a2 2 0 0 1-2-2v-2M7 12h10M12 7v10"/></svg>
+                    <span>Scan QR Code</span>
+                </a>
+            </li>
+        </ul>
+        <!-- Sidebar Footer -->
+        @auth
+        <div class="sidebar-footer">
+            <div class="user-avatar">
+                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+            </div>
+            <div class="user-info">
+                <span class="user-name">{{ auth()->user()->name }}</span>
+                <span class="user-email">{{ auth()->user()->email }}</span>
+            </div>
+            <form action="{{ route('logout') }}" method="POST" id="logout-form" style="display: none;">
+                @csrf
+            </form>
+            <button class="btn-logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" title="Keluar">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+            </button>
+        </div>
+        @endauth
+    </aside>
+
+    <!-- Main Workspace -->
+    <main>
+        <!-- Header Navbar -->
+        <header>
+            <div class="page-title">
+                <h1>@yield('page_title', 'Dashboard')</h1>
+                <p>@yield('page_subtitle', 'Selamat datang kembali di sistem inventaris barang.')</p>
+            </div>
+            <div class="header-actions">
+                <a href="{{ route('items.scan') }}" class="btn btn-secondary">
+                    <svg class="btn-svg" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2m10 0h2a2 2 0 0 1 2 2v2m0 10v2a2 2 0 0 1-2 2h-2m-10 0H5a2 2 0 0 1-2-2v-2M7 12h10M12 7v10"/></svg>
+                    <span>Scan QR</span>
+                </a>
+                <a href="{{ route('items.create') }}" class="btn btn-primary">
+                    <svg class="btn-svg" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span>Tambah Barang</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Flash Messages -->
+        @if(session('success'))
+            <div class="alert alert-success">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
+                <div>{{ session('success') }}</div>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                <div>{{ session('error') }}</div>
+            </div>
+        @endif
+
+        <!-- Main Content View -->
+        @yield('content')
+    </main>
+
+    <!-- Scripts Area -->
+    @yield('scripts')
+</body>
+</html>
