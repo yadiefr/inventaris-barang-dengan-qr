@@ -31,13 +31,13 @@
                         <tbody>
                             @foreach($categories as $category)
                                 <tr>
-                                    <td>#{{ $category->id }}</td>
-                                    <td><strong>{{ $category->name }}</strong></td>
-                                    <td>{{ $category->description ?? '-' }}</td>
-                                    <td style="text-align: center;">
+                                    <td data-label="ID">#{{ $category->id }}</td>
+                                    <td data-label="Nama Kategori"><strong>{{ $category->name }}</strong></td>
+                                    <td data-label="Deskripsi">{{ $category->description ?? '-' }}</td>
+                                    <td data-label="Jumlah Barang" style="text-align: center;">
                                         <span class="badge badge-info">{{ $category->items_count }}</span>
                                     </td>
-                                    <td style="text-align: center;">
+                                    <td data-label="Aksi" style="text-align: center;">
                                         <div style="display: flex; gap: 8px; justify-content: center;">
                                             <button 
                                                 onclick="editCategory({{ $category->id }}, '{{ addslashes($category->name) }}', '{{ addslashes($category->description) }}')" 

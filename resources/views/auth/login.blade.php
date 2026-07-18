@@ -373,6 +373,23 @@
             font-size: 13px;
             color: var(--text-muted);
         }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 24px 20px;
+            }
+            .login-header h1 {
+                font-size: 22px;
+            }
+            .login-header {
+                margin-bottom: 24px;
+            }
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+        }
     </style>
 </head>
 <body>

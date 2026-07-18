@@ -75,18 +75,18 @@
                     <tbody>
                         @foreach($items as $item)
                             <tr>
-                                <td>
+                                <td data-label="SKU / Kode">
                                     <code style="font-family: monospace; font-size: 14px; font-weight: bold; color: var(--primary); letter-spacing: 0.5px;">
                                         {{ $item->sku }}
                                     </code>
                                 </td>
-                                <td>
+                                <td data-label="Nama Barang">
                                     <div style="font-weight: 600; font-size: 15px;">{{ $item->name }}</div>
                                     <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px; max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                         {{ $item->description ?? 'Tidak ada deskripsi.' }}
                                     </div>
                                 </td>
-                                <td>
+                                <td data-label="Kategori">
                                     @if($item->category)
                                         <span class="badge badge-info" style="background-color: rgba(103, 232, 249, 0.08); border: 1px solid rgba(103, 232, 249, 0.3);">
                                             {{ $item->category->name }}
@@ -97,10 +97,10 @@
                                         </span>
                                     @endif
                                 </td>
-                                <td style="text-align: right; font-weight: 500;">
+                                <td data-label="Harga Satuan" style="text-align: right; font-weight: 500;">
                                     Rp {{ number_format($item->price, 0, ',', '.') }}
                                 </td>
-                                <td style="text-align: center;">
+                                <td data-label="Stok" style="text-align: center;">
                                     @if($item->qty == 0)
                                         <span class="badge badge-danger">Habis (0 {{ $item->unit }})</span>
                                     @elseif($item->qty <= 5)
@@ -109,12 +109,12 @@
                                         <span class="badge badge-success">{{ $item->qty }} {{ $item->unit }}</span>
                                     @endif
                                 </td>
-                                <td style="text-align: center;">
+                                <td data-label="QR Code" style="text-align: center;">
                                     <div style="background-color: white; padding: 4px; border-radius: 4px; display: inline-flex; justify-content: center; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
                                         {!! QrCode::size(40)->generate($item->sku) !!}
                                     </div>
                                 </td>
-                                <td style="text-align: center;">
+                                <td data-label="Aksi" style="text-align: center;">
                                     <div style="display: flex; gap: 6px; justify-content: center;">
                                         <a href="{{ route('items.show', $item->id) }}" class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px; border-color: var(--primary); color: #cffafe;">
                                             Detail & QR

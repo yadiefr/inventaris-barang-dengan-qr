@@ -11,6 +11,31 @@
 </head>
 <body>
 
+    <!-- Mobile Top Bar -->
+    <div class="mobile-navbar">
+        <button id="menu-toggle" class="btn-menu-toggle" aria-label="Buka Menu">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+        <div class="mobile-brand">
+            <div class="brand-icon">I</div>
+            <span class="brand-name">QR Inventory</span>
+        </div>
+        <div class="mobile-user">
+            @auth
+            <div class="user-avatar" style="width: 30px; height: 30px; font-size: 13px; box-shadow: none;">
+                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+            </div>
+            @endauth
+        </div>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
     <!-- Sidebar -->
     <aside id="sidebar">
         <div class="sidebar-brand">
@@ -104,5 +129,47 @@
 
     <!-- Scripts Area -->
     @yield('scripts')
+
+    <!-- Responsive Sidebar Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            
+            if (sidebar) {
+                function toggleSidebar() {
+                    sidebar.classList.toggle('show');
+                    if (overlay) {
+                        overlay.classList.toggle('show');
+                    }
+                }
+                
+                if (menuToggle) {
+                    menuToggle.addEventListener('click', toggleSidebar);
+                }
+                
+                if (overlay) {
+                    overlay.addEventListener('click', toggleSidebar);
+                }
+                
+                // Tambahkan tombol tutup (close) di sidebar brand khusus layar mobile
+                const sidebarBrand = sidebar.querySelector('.sidebar-brand');
+                if (sidebarBrand) {
+                    const closeBtn = document.createElement('button');
+                    closeBtn.className = 'btn-close-sidebar';
+                    closeBtn.setAttribute('aria-label', 'Tutup Menu');
+                    closeBtn.innerHTML = `
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    `;
+                    closeBtn.addEventListener('click', toggleSidebar);
+                    sidebarBrand.appendChild(closeBtn);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
