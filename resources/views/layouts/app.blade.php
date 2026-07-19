@@ -97,6 +97,10 @@
                 <p>@yield('page_subtitle', 'Selamat datang kembali di sistem inventaris barang.')</p>
             </div>
             <div class="header-actions">
+                <button id="theme-toggle" class="btn btn-secondary" title="Ganti Tema" aria-label="Ganti Tema">
+                    <svg id="theme-icon-dark" class="btn-svg" style="display: none;" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <svg id="theme-icon-light" class="btn-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                </button>
                 <a href="{{ route('items.scan') }}" class="btn btn-secondary">
                     <svg class="btn-svg" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2m10 0h2a2 2 0 0 1 2 2v2m0 10v2a2 2 0 0 1-2 2h-2m-10 0H5a2 2 0 0 1-2-2v-2M7 12h10M12 7v10"/></svg>
                     <span>Scan QR</span>
@@ -132,11 +136,43 @@
 
     <!-- Responsive Sidebar Scripts -->
     <script>
+        // Set tema awal sebelum DOM load penuh untuk mencegah flash
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        
         document.addEventListener('DOMContentLoaded', function() {
             const menuToggle = document.getElementById('menu-toggle');
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
             
+            // Theme Toggle Logic
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeIconDark = document.getElementById('theme-icon-dark');
+            const themeIconLight = document.getElementById('theme-icon-light');
+
+            function applyTheme(theme) {
+                if (themeIconDark && themeIconLight) {
+                    if (theme === 'light') {
+                        themeIconDark.style.display = 'block';
+                        themeIconLight.style.display = 'none';
+                    } else {
+                        themeIconDark.style.display = 'none';
+                        themeIconLight.style.display = 'block';
+                    }
+                }
+            }
+
+            applyTheme(currentTheme);
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const newTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                    applyTheme(newTheme);
+                });
+            }
+
             if (sidebar) {
                 function toggleSidebar() {
                     sidebar.classList.toggle('show');

@@ -20,6 +20,28 @@
     --font-sans: 'Inter', sans-serif;
     --font-heading: 'Outfit', sans-serif;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --brand-gradient-1: #ffffff;
+    --brand-gradient-2: #93c5fd;
+}
+
+:root[data-theme="light"] {
+    --bg-main: #f3f4f6;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f9fafb;
+    --border-color: #e5e7eb;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --primary: #0284c7;
+    --primary-glow: rgba(2, 132, 199, 0.15);
+    --secondary: #7c3aed;
+    --secondary-glow: rgba(124, 58, 237, 0.15);
+    --success: #059669;
+    --success-glow: rgba(5, 150, 105, 0.15);
+    --warning: #d97706;
+    --danger: #dc2626;
+    --danger-glow: rgba(220, 38, 38, 0.15);
+    --brand-gradient-1: #1e3a8a;
+    --brand-gradient-2: #3b82f6;
 }
 
 * {
@@ -79,7 +101,7 @@ aside {
     font-family: var(--font-heading);
     font-weight: 700;
     font-size: 18px;
-    background: linear-gradient(to right, #ffffff, #93c5fd);
+    background: linear-gradient(to right, var(--brand-gradient-1), var(--brand-gradient-2));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
