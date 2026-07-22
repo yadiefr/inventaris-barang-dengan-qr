@@ -82,9 +82,11 @@
                                     </code>
                                 </td>
                                 <td data-label="Nama Barang">
-                                    <div style="font-weight: 600; font-size: 15px;">{{ $item->name }}</div>
-                                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px; max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                        {{ $item->description ?? 'Tidak ada deskripsi.' }}
+                                    <div class="item-name-cell">
+                                        <div class="item-name">{{ $item->name }}</div>
+                                        <div class="item-desc">
+                                            {{ $item->description ?? '' }}
+                                        </div>
                                     </div>
                                 </td>
                                 <td data-label="Kategori">
@@ -125,8 +127,8 @@
                                     </div>
                                 </td>
                                 <td data-label="Aksi" style="text-align: center;">
-                                    <div style="display: flex; gap: 6px; justify-content: center;">
-                                        <a href="{{ route('items.show', $item->id) }}" class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px; border-color: var(--primary); color: #cffafe;">
+                                    <div class="action-buttons">
+                                        <a href="{{ route('items.show', $item->id) }}" class="btn btn-secondary btn-detail" style="padding: 6px 12px; font-size: 12px;">
                                             Detail & QR
                                         </a>
                                         <a href="{{ route('items.edit', $item->id) }}" class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">
