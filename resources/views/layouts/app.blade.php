@@ -6,7 +6,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - Inventaris Barang</title>
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ filemtime(public_path('css/app.css')) }}">
+    @php
+        $cssPath = public_path('css/app.css');
+        $version = file_exists($cssPath) ? filemtime($cssPath) : time();
+    @endphp
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ $version }}">
     @yield('styles')
 </head>
 <body>
