@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use BaconQrCode\Encoder\Encoder;
+use BaconQrCode\Common\ErrorCorrectionLevel;
 
 class ItemController extends Controller
 {
@@ -26,6 +28,7 @@ class ItemController extends Controller
             $query->where(function($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
                   ->orWhere('sku', 'like', "%{$search}%")
+                  ->orWhere('location', 'like', "%{$search}%")
                   ->orWhere('description', 'like', "%{$search}%");
             });
         }
@@ -68,6 +71,7 @@ class ItemController extends Controller
             'sku' => 'nullable|string|max:255|unique:items,sku',
             'name' => 'required|string|max:255',
             'category_id' => 'nullable|exists:categories,id',
+            'location' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'qty' => 'required|integer|min:0',
@@ -116,6 +120,7 @@ class ItemController extends Controller
             'sku' => 'required|string|max:255|unique:items,sku,' . $item->id,
             'name' => 'required|string|max:255',
             'category_id' => 'nullable|exists:categories,id',
+            'location' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'qty' => 'required|integer|min:0',
@@ -179,17 +184,44 @@ class ItemController extends Controller
     }
 
     /**
-     * Download the QR Code image.
+     * Download the QR Code image as JPG format.
      */
     public function downloadQr(Item $item): Response
     {
-        $qrCode = QrCode::format('svg')
-            ->size(300)
-            ->margin(1)
-            ->generate($item->sku);
+        $qr = Encoder::encode($item->sku, ErrorCorrectionLevel::L());
+        $matrix = $qr->getMatrix();
+        $width = $matrix->getWidth();
+        $height = $matrix->getHeight();
 
-        return response($qrCode)
-            ->header('Content-type', 'image/svg+xml')
-            ->header('Content-Disposition', 'attachment; filename="qr-' . $item->sku . '.svg"');
+        $margin = 2;
+        $targetSize = 400;
+        $totalBlocks = $width + ($margin * 2);
+        $blockSize = (int) max(1, floor($targetSize / $totalBlocks));
+        $imgSize = $blockSize * $totalBlocks;
+
+        $image = imagecreatetruecolor($imgSize, $imgSize);
+        $white = imagecolorallocate($image, 255, 255, 255);
+        $black = imagecolorallocate($image, 0, 0, 0);
+
+        imagefilledrectangle($image, 0, 0, $imgSize, $imgSize, $white);
+
+        for ($y = 0; $y < $height; $y++) {
+            for ($x = 0; $x < $width; $x++) {
+                if ($matrix->get($x, $y) === 1) {
+                    $px = ($x + $margin) * $blockSize;
+                    $py = ($y + $margin) * $blockSize;
+                    imagefilledrectangle($image, $px, $py, $px + $blockSize - 1, $py + $blockSize - 1, $black);
+                }
+            }
+        }
+
+        ob_start();
+        imagejpeg($image, null, 95);
+        $jpgData = ob_get_clean();
+        imagedestroy($image);
+
+        return response($jpgData)
+            ->header('Content-type', 'image/jpeg')
+            ->header('Content-Disposition', 'attachment; filename="qr-' . $item->sku . '.jpg"');
     }
 }

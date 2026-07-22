@@ -64,16 +64,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="unit">Satuan Barang <span style="color: var(--danger)">*</span></label>
+                    <label for="location">Tempat / Lokasi Barang</label>
                     <input 
                         type="text" 
-                        id="unit" 
-                        name="unit" 
+                        id="location" 
+                        name="location" 
                         class="form-control" 
-                        required
-                        value="{{ old('unit', $item->unit) }}"
+                        placeholder="Contoh: Rak A-02, Gudang 1, Lemari B"
+                        value="{{ old('location', $item->location) }}"
                     >
-                    @error('unit')
+                    @error('location')
                         <span style="color: var(--danger); font-size: 12px; display: block; margin-top: 5px;">{{ $message }}</span>
                     @enderror
                 </div>
@@ -97,23 +97,38 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="qty">Stok saat ini <span style="color: var(--danger)">*</span></label>
+                    <label for="unit">Satuan Barang <span style="color: var(--danger)">*</span></label>
                     <input 
-                        type="number" 
-                        id="qty" 
-                        name="qty" 
+                        type="text" 
+                        id="unit" 
+                        name="unit" 
                         class="form-control" 
                         required
-                        min="0"
-                        value="{{ old('qty', $item->qty) }}"
+                        value="{{ old('unit', $item->unit) }}"
                     >
-                    <small style="color: var(--text-muted); font-size: 11px; display: block; margin-top: 4px;">
-                        Catatan: Mengubah jumlah stok di sini akan otomatis mencatat mutasi penyesuaian stok.
-                    </small>
-                    @error('qty')
+                    @error('unit')
                         <span style="color: var(--danger); font-size: 12px; display: block; margin-top: 5px;">{{ $message }}</span>
                     @enderror
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="qty">Stok saat ini <span style="color: var(--danger)">*</span></label>
+                <input 
+                    type="number" 
+                    id="qty" 
+                    name="qty" 
+                    class="form-control" 
+                    required
+                    min="0"
+                    value="{{ old('qty', $item->qty) }}"
+                >
+                <small style="color: var(--text-muted); font-size: 11px; display: block; margin-top: 4px;">
+                    Catatan: Mengubah jumlah stok di sini akan otomatis mencatat mutasi penyesuaian stok.
+                </small>
+                @error('qty')
+                    <span style="color: var(--danger); font-size: 12px; display: block; margin-top: 5px;">{{ $message }}</span>
+                @enderror
             </div>
 
             <div class="form-group">

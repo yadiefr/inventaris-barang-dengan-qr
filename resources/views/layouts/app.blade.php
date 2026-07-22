@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title') - Inventory QR</title>
+    <title>@yield('title') - Inventaris Barang</title>
     <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ filemtime(public_path('css/app.css')) }}">
     @yield('styles')
@@ -22,7 +22,7 @@
         </button>
         <div class="mobile-brand">
             <div class="brand-icon">I</div>
-            <span class="brand-name">QR Inventory</span>
+            <span class="brand-name">Inventaris Barang</span>
         </div>
         <div class="mobile-user">
             @auth

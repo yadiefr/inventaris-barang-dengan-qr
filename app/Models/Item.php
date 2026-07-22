@@ -15,6 +15,7 @@ class Item extends Model
         'sku',
         'name',
         'category_id',
+        'location',
         'description',
         'price',
         'qty',

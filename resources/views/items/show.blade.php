@@ -5,12 +5,6 @@
 @section('page_subtitle', 'Melihat detail spesifikasi barang, QR Code, dan riwayat pergerakan stok.')
 
 @section('content')
-    <!-- Print Area Helper (Only visible when printing) -->
-    <div class="print-title" style="text-align: center;">
-        <h2 style="font-family: 'Outfit', sans-serif; font-size: 28px;">{{ $item->name }}</h2>
-        <p style="font-size: 14px; margin-top: 4px;">Inventaris Sistem QR</p>
-    </div>
-
     <div class="detail-grid">
         <!-- Left Column: QR Code & Stock Adjustments -->
         <div style="display: flex; flex-direction: column; gap: 24px;">
@@ -23,14 +17,10 @@
                 <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">
                     Scan QR Code ini untuk melihat halaman detail barang secara instan.
                 </p>
-                <div style="display: flex; gap: 10px; width: 100%;">
-                    <button onclick="window.print()" class="btn btn-secondary" style="flex: 1; justify-content: center;">
-                        <svg class="btn-svg" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-                        <span>Cetak Label</span>
-                    </button>
-                    <a href="{{ route('items.download-qr', $item->id) }}" class="btn btn-primary" style="flex: 1; justify-content: center;">
+                <div style="display: flex; width: 100%;">
+                    <a href="{{ route('items.download-qr', $item->id) }}" class="btn btn-primary" style="width: 100%; justify-content: center;">
                         <svg class="btn-svg" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                        <span>Unduh SVG</span>
+                        <span>Unduh JPG</span>
                     </a>
                 </div>
             </div>
@@ -114,6 +104,18 @@
                                         <span class="badge badge-info">{{ $item->category->name }}</span>
                                     @else
                                         <span class="badge badge-secondary">Umum</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: var(--text-muted); font-weight: 500; border: none; padding: 6px 0;">Lokasi / Tempat:</td>
+                                <td style="border: none; padding: 6px 0;">
+                                    @if($item->location)
+                                        <span class="badge badge-secondary" style="background-color: var(--bg-card-hover); border: 1px solid var(--border-color); color: var(--text-main); font-weight: 600;">
+                                            📍 {{ $item->location }}
+                                        </span>
+                                    @else
+                                        <span style="color: var(--text-muted); font-style: italic;">Belum ditentukan</span>
                                     @endif
                                 </td>
                             </tr>

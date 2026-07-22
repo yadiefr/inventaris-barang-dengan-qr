@@ -2,7 +2,7 @@
 
 @section('title', 'Daftar Barang')
 @section('page_title', 'Inventaris Barang')
-@section('page_subtitle', 'Kelola semua barang inventaris Anda, cetak label QR, dan filter pencarian.')
+@section('page_subtitle', 'Kelola semua barang inventaris Anda, unduh QR Code, dan filter pencarian.')
 
 @section('content')
     <!-- Filter and Search Bar -->
@@ -12,7 +12,7 @@
                 type="text" 
                 name="search" 
                 class="form-control" 
-                placeholder="Cari berdasarkan nama, SKU, atau deskripsi..." 
+                placeholder="Cari berdasarkan nama, SKU, lokasi, atau deskripsi..." 
                 value="{{ request('search') }}"
             >
         </div>
@@ -66,6 +66,7 @@
                             <th style="width: 140px;">SKU / Kode</th>
                             <th>Nama Barang</th>
                             <th>Kategori</th>
+                            <th>Lokasi / Tempat</th>
                             <th style="text-align: right;">Harga Satuan</th>
                             <th style="text-align: center; width: 120px;">Stok</th>
                             <th style="text-align: center; width: 120px;">QR Code</th>
@@ -95,6 +96,15 @@
                                         <span class="badge badge-secondary" style="background-color: var(--border-color); color: var(--text-muted);">
                                             Umum
                                         </span>
+                                    @endif
+                                </td>
+                                <td data-label="Lokasi / Tempat">
+                                    @if($item->location)
+                                        <span style="font-weight: 500; color: var(--text-main); font-size: 13px;">
+                                            📍 {{ $item->location }}
+                                        </span>
+                                    @else
+                                        <span style="color: var(--text-muted); font-size: 13px;">—</span>
                                     @endif
                                 </td>
                                 <td data-label="Harga Satuan" style="text-align: right; font-weight: 500;">

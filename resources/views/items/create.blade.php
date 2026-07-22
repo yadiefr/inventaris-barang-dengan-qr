@@ -64,17 +64,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="unit">Satuan Barang <span style="color: var(--danger)">*</span></label>
+                    <label for="location">Tempat / Lokasi Barang</label>
                     <input 
                         type="text" 
-                        id="unit" 
-                        name="unit" 
+                        id="location" 
+                        name="location" 
                         class="form-control" 
-                        placeholder="Contoh: Pcs, Box, Kg, Liter, Unit"
-                        required
-                        value="{{ old('unit', 'Pcs') }}"
+                        placeholder="Contoh: Rak A-02, Gudang 1, Lemari B"
+                        value="{{ old('location') }}"
                     >
-                    @error('unit')
+                    @error('location')
                         <span style="color: var(--danger); font-size: 12px; display: block; margin-top: 5px;">{{ $message }}</span>
                     @enderror
                 </div>
@@ -99,21 +98,37 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="qty">Stok Awal <span style="color: var(--danger)">*</span></label>
+                    <label for="unit">Satuan Barang <span style="color: var(--danger)">*</span></label>
                     <input 
-                        type="number" 
-                        id="qty" 
-                        name="qty" 
+                        type="text" 
+                        id="unit" 
+                        name="unit" 
                         class="form-control" 
-                        placeholder="Contoh: 10"
+                        placeholder="Contoh: Pcs, Box, Kg, Liter, Unit"
                         required
-                        min="0"
-                        value="{{ old('qty', 0) }}"
+                        value="{{ old('unit', 'Pcs') }}"
                     >
-                    @error('qty')
+                    @error('unit')
                         <span style="color: var(--danger); font-size: 12px; display: block; margin-top: 5px;">{{ $message }}</span>
                     @enderror
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label for="qty">Stok Awal <span style="color: var(--danger)">*</span></label>
+                <input 
+                    type="number" 
+                    id="qty" 
+                    name="qty" 
+                    class="form-control" 
+                    placeholder="Contoh: 10"
+                    required
+                    min="0"
+                    value="{{ old('qty', 0) }}"
+                >
+                @error('qty')
+                    <span style="color: var(--danger); font-size: 12px; display: block; margin-top: 5px;">{{ $message }}</span>
+                @enderror
             </div>
 
             <div class="form-group">

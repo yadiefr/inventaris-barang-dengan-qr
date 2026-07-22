@@ -36,7 +36,8 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Laptop ASUS Vivobook 14',
                 'category_id' => $categories[0]->id,
-                'description' => 'Laptop kerja Core i5, RAM 8GB, SSD 512GB. Lokasi: Rak A-02.',
+                'location' => 'Rak A-02',
+                'description' => 'Laptop kerja Core i5, RAM 8GB, SSD 512GB.',
                 'price' => 8750000,
                 'qty' => 4, // Low stock alert trigger
                 'unit' => 'Unit'
@@ -44,7 +45,8 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Logitech Wireless Mouse M185',
                 'category_id' => $categories[0]->id,
-                'description' => 'Mouse nirkabel warna hitam-abu. Lokasi: Rak A-03.',
+                'location' => 'Rak A-03',
+                'description' => 'Mouse nirkabel warna hitam-abu.',
                 'price' => 145000,
                 'qty' => 12,
                 'unit' => 'Pcs'
@@ -52,7 +54,8 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Kertas HVS Sinar Dunia A4 80gr',
                 'category_id' => $categories[1]->id,
-                'description' => 'Kertas cetak warna putih bersih. Lokasi: Rak B-01.',
+                'location' => 'Rak B-01',
+                'description' => 'Kertas cetak warna putih bersih.',
                 'price' => 52000,
                 'qty' => 25,
                 'unit' => 'Rim'
@@ -60,7 +63,8 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Buku Catatan Spiral Kiky',
                 'category_id' => $categories[1]->id,
-                'description' => 'Buku tulis spiral bergaris isi 100 lembar. Lokasi: Rak B-02.',
+                'location' => 'Rak B-02',
+                'description' => 'Buku tulis spiral bergaris isi 100 lembar.',
                 'price' => 18000,
                 'qty' => 40,
                 'unit' => 'Pcs'
@@ -68,7 +72,8 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Masker Sensi 3-Ply Earloop',
                 'category_id' => $categories[2]->id,
-                'description' => 'Masker medis isi 50 pcs per box. Lokasi: Lemari C-01.',
+                'location' => 'Lemari C-01',
+                'description' => 'Masker medis isi 50 pcs per box.',
                 'price' => 35000,
                 'qty' => 15,
                 'unit' => 'Box'
@@ -76,7 +81,8 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Hand Sanitizer Dettol 500ml',
                 'category_id' => $categories[2]->id,
-                'description' => 'Cairan pembersih tangan antiseptik pump. Lokasi: Lemari C-02.',
+                'location' => 'Lemari C-02',
+                'description' => 'Cairan pembersih tangan antiseptik pump.',
                 'price' => 65000,
                 'qty' => 0, // Out of stock trigger
                 'unit' => 'Botol'
@@ -84,7 +90,8 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Oli Mesin Shell Helix HX7 1L',
                 'category_id' => $categories[3]->id,
-                'description' => 'Pelumas mesin sintetis untuk mobil dinas kantor. Lokasi: Gudang D-01.',
+                'location' => 'Gudang D-01',
+                'description' => 'Pelumas mesin sintetis untuk mobil dinas kantor.',
                 'price' => 95000,
                 'qty' => 8,
                 'unit' => 'Botol'
@@ -92,7 +99,8 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'Kopi Kapal Api Spesial Mix 25gr',
                 'category_id' => $categories[4]->id,
-                'description' => 'Kopi instan saset rasa manis. Lokasi: Pantry lantai 2.',
+                'location' => 'Pantry Lt. 2',
+                'description' => 'Kopi instan saset rasa manis.',
                 'price' => 2000,
                 'qty' => 120,
                 'unit' => 'Sachet'
